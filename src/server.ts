@@ -15,8 +15,11 @@ export class Server {
     }
     setConfiguration() {
         this.connectMongoDb();
+        this.app.use(bodyParser.json());
         this.configureBodyParser();
-        
+        var cors = require('cors');
+this.app.use(cors({origin: '*','exposedHeaders' : ['X-Total-Count','Content-Type']}));
+      
     }
     handleErrors() {
         this.app.use((error, req, res, next) => {
@@ -29,12 +32,10 @@ export class Server {
         })
     }
     configureBodyParser() {
-        this.app.use(bodyParser.urlencoded({extended: true}))
+        this.app.use(bodyParser.urlencoded({extended: false}))
     }
     connectMongoDb() {
-        var cors = require('cors');
-    this.app.use(cors({origin: '*','exposedHeaders' : ['X-Total-Count','Content-Type']}));
-       mongoose.connect('mongodb://localhost:27017/insurance_brokerage', {useNewUrlParser: true, useUnifiedTopology: true}).then(()=>{
+              mongoose.connect('mongodb://localhost:27017/insurance_brokerage', {useNewUrlParser: true, useUnifiedTopology: true}).then(()=>{
            console.log('connected to the database');
        })
     }

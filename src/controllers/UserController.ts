@@ -34,7 +34,15 @@ export class UserController {
             next(e);
         }
     }
-
+  static async listUser(req: any, res: any, next) {
+        try {
+            let user = await Users.find();
+            res.send(user);
+        } catch (e) {
+            next(e);
+        }
+  }
+    
     static async login(req: any, res: any, next) {
         const password = req.query.password;
            const user = req.user; 

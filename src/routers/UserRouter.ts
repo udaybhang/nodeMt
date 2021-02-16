@@ -11,7 +11,8 @@ class UserRouter {
         this.getRoutes();
     }
     getRoutes() {
-        this.router.get('/login', UserValidators.login() , UserController.login)
+        this.router.get('/login', UserValidators.login() , UserController.login);
+        this.router.get('/listUser',  UserController.listUser);
     }
     PostRoutes() {
         this.router.post('/signUp',  UserValidators.signUp(), GlobalMiddleware.checkError ,UserController.signUp) //UserController.signUp isme () nahi hai signUP ke aage kyoki ye  kuch array return nahi kar raha
